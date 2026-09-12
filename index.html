@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShareBite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="image.png">
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800 min-h-screen flex flex-col">
+
+    
+    <nav class="bg-emerald-600 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-wide">🥦 ShareBite</h1>
+            <button onclick="toggleModal()" class="bg-white text-emerald-600 px-4 py-2 rounded-lg font-semibold hover:bg-emerald-50 transition">
+                + Donate Food
+            </button>
+        </div>
+    </nav>
+
+    
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+        
+        <section class="text-center py-6 mb-8">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Reduce Waste, Share Food</h2>
+            <p class="text-gray-600 max-w-xl mx-auto">Connect with neighbours and local businesses to claim fresh surplus food for free.</p>
+        </section>
+
+        
+        <div class="flex flex-col md:flex-row gap-4 mb-8 justify-between items-center">
+            <input type="text" id="searchInput" oninput="filterFoodItems()" placeholder="Search items or locations..." class="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <div class="flex gap-2 w-full md:w-auto">
+                <button onclick="setFilter('all')" class="filter-btn active-btn px-4 py-2 rounded-lg text-sm font-medium">All</button>
+                <button onclick="setFilter('Produce')" class="filter-btn border px-4 py-2 rounded-lg text-sm font-medium">Produce</button>
+                <button onclick="setFilter('Bakery')" class="filter-btn border px-4 py-2 rounded-lg text-sm font-medium">Bakery</button>
+                <button onclick="setFilter('Prepared')" class="filter-btn border px-4 py-2 rounded-lg text-sm font-medium">Prepared Meals</button>
+            </div>
+        </div>
+
+        
+        <div id="foodGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+        </div>
+    </main>
+
+    
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+        <p>&copy; 2026 ShareBite Reserved - Community Food Saver</p>
+    </footer>
+
+    
+    <div id="donateModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center p-4">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
+            <h3 class="text-xl font-bold mb-4">Post Surplus Food</h3>
+            <form id="donationForm" onsubmit="handleDonate(event)" class="space-y-4">
+                <input type="text" id="foodTitle" placeholder="Item Name (e.g., Fresh Apples)" required class="w-full p-2 border rounded">
+                <select id="foodCategory" required class="w-full p-2 border rounded">
+                    <option value="Produce">Produce</option>
+                    <option value="Bakery">Bakery</option>
+                    <option value="Prepared">Prepared Meal</option>
+                </select>
+                <input type="text" id="foodLocation" placeholder="Location/Neighbourhood" required class="w-full p-2 border rounded">
+                <input type="text" id="foodExpiry" placeholder="Best Before / Pickup Time" required class="w-full p-2 border rounded">
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="toggleModal()" class="px-4 py-2 text-gray-600">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
