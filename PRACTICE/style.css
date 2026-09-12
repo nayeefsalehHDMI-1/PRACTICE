@@ -1,0 +1,21 @@
+/* Custom CSS extensions */
+.filter-btn {
+    transition: all 0.2s ease-in-out;
+    background-color: #ffffff;
+    color: #374151;
+}
+
+.filter-btn:hover {
+    background-color: #ecfdf5;
+    color: #059669;
+}
+
+.active-btn {
+    background-color: #059669 !important;
+    color: #ffffff !important;
+}
+
+.claimed-card {
+    opacity: 0.6;
+    filter: grayscale(40%);
+}
