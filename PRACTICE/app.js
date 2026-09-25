@@ -7,7 +7,7 @@ let foodData = [
 
 let activeCategory = 'all';
 
-// Render Listings
+// Render Listings inside App Feed
 function renderGrid() {
     const grid = document.getElementById('foodGrid');
     const searchVal = document.getElementById('searchInput').value.toLowerCase();
@@ -21,27 +21,29 @@ function renderGrid() {
     });
 
     if(filtered.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No items found.</p>`;
+        grid.innerHTML = `<div class="text-center text-gray-400 py-12 text-sm">No items found.</div>`;
         return;
     }
 
     filtered.forEach(item => {
         const card = document.createElement('div');
-        card.className = `bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between ${item.claimed ? 'claimed-card' : ''}`;
+        card.className = `bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between ${item.claimed ? 'claimed-card' : ''}`;
         
         card.innerHTML = `
             <div>
-                <span class="text-xs font-semibold uppercase px-2 py-1 bg-emerald-100 text-emerald-700 rounded-full">${item.category}</span>
-                <h3 class="text-lg font-bold text-gray-900 mt-2">${item.title}</h3>
-                <p class="text-sm text-gray-500 mt-1">📍 ${item.location}</p>
-                <p class="text-sm text-gray-500">⏰ Available: ${item.expiry}</p>
+                <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md">${item.category}</span>
+                    <span class="text-xs text-gray-400 font-medium">${item.expiry}</span>
+                </div>
+                <h3 class="text-base font-bold text-gray-900 mt-1.5">${item.title}</h3>
+                <p class="text-xs text-gray-500 mt-0.5 flex items-center gap-1">📍 ${item.location}</p>
             </div>
             <button 
                 onclick="toggleClaim(${item.id})" 
-                class="mt-4 w-full py-2 px-4 rounded-lg font-medium transition ${
+                class="mt-3 w-full py-2 px-4 rounded-xl text-xs font-semibold transition active:scale-95 ${
                     item.claimed 
-                    ? 'bg-gray-300 text-gray-700 cursor-not-allowed' 
-                    : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                    : 'bg-emerald-600 text-white shadow-sm hover:bg-emerald-700'
                 }"
                 ${item.claimed ? 'disabled' : ''}>
                 ${item.claimed ? 'Reserved' : 'Claim Item'}
@@ -64,8 +66,10 @@ function toggleClaim(id) {
 function setFilter(cat) {
     activeCategory = cat;
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active-btn');
+        btn.classList.remove('active-btn', 'bg-emerald-600', 'text-white');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
     });
+    event.target.classList.remove('bg-gray-100', 'text-gray-700');
     event.target.classList.add('active-btn');
     renderGrid();
 }
