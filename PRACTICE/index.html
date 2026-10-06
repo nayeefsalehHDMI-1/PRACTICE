@@ -1,147 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShareBite - Community Food Sharing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Configure Tailwind with custom colors based on the logo
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            teal: '#146C70', // Primary accent from logo
-                            mint: '#A2FFB9', // Lighter accent
-                            orange: '#FF9F45', // Heart color
-                            lightBg: '#FBFBFB',
+                            teal: '#146C70',
+                            darkTeal: '#0F5255',
+                            mint: '#A2FFB9',
+                            orange: '#FF9F45',
+                            lightBg: '#F4F7F6',
                         }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(20, 108, 112, 0.08)',
+                        'glow': '0 0 25px -5px rgba(255, 159, 69, 0.4)',
                     }
                 }
             }
         }
     </script>
     <link rel="stylesheet" href="style.css">
-    <!-- Link to the uploaded logo as favicon -->
-    <link rel="icon" type="image/png" href="image.png">
+    <link rel="icon" type="image/png" href="image_1.png">
 </head>
 
-<body class="bg-slate-900 font-sans text-slate-700 min-h-screen flex justify-center items-center sm:py-6 sm:px-4">
+<body class="bg-brand-lightBg font-sans text-slate-700 min-h-screen flex flex-col justify-between selection:bg-brand-mint selection:text-brand-darkTeal">
 
-    <!-- Responsive App Container (Mobile: Fullscreen, Desktop: Centered iPhone Mockup) -->
-    <div class="iphone-frame">
-        <!-- iPhone Notch & Status Bar (Visible on larger screens) -->
-        <div class="iphone-status-bar">
-            <span>9:41</span>
-            <div class="iphone-notch"></div>
-            <div class="flex items-center space-x-1.5 text-xs">
-                <span>5G</span>
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19h4.31c1.03.62 2.25 1 3.34 1s2.31-.38 3.34-1h4.31l-1.62-1.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+    <!-- Glowing Background Graphic Orbs -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-brand-mint/20 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse"></div>
+    <div class="fixed top-1/3 right-10 w-80 h-80 bg-brand-orange/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+    <!-- Top Navigation Bar (Glassmorphism Header) -->
+    <header class="glass-nav sticky top-0 z-40 border-b border-slate-200/60 backdrop-blur-xl bg-white/80 transition-all">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-brand-teal to-brand-orange rounded-full blur opacity-40 group-hover:opacity-15 transition duration-300"></div>
+                    <img src="image_1.png" alt="ShareBite Logo" class="relative w-11 h-11 object-contain transform group-hover:scale-105 transition duration-300">
+                </div>
+                <h1 class="text-2xl font-black tracking-tight text-brand-teal">Share<span class="text-brand-orange">Bite</span></h1>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#" class="text-brand-teal hover:text-brand-darkTeal transition">Explore Feed</a>
+                <a href="#howItWorks" onclick="toggleModal(); return false;" class="hover:text-brand-teal transition">Share Surplus</a>
+                <a href="#impact" class="hover:text-brand-teal transition">Community Impact</a>
+            </nav>
+
+            <button onclick="toggleModal()" class="relative group overflow-hidden bg-gradient-to-r from-brand-teal to-brand-darkTeal text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-lg shadow-brand-teal/20 active:scale-95 transition-all duration-300 hover:shadow-xl hover:shadow-brand-teal/30">
+                <span class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+                <span class="relative flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    Share Food
+                </span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-6 py-8 space-y-8">
+        
+        <!-- Smooth Hero Section -->
+        <div class="relative overflow-hidden bg-gradient-to-br from-brand-teal via-teal-700 to-brand-darkTeal text-white p-8 md:p-14 rounded-[2.5rem] shadow-2xl flex flex-col md:flex-row justify-between items-center gap-8 group">
+            <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-white/5 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700"></div>
+            
+            <div class="space-y-4 max-w-2xl relative z-10">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-brand-mint text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
+                    <span class="w-2 h-2 rounded-full bg-brand-mint animate-ping"></span>
+                    Zero Food Waste Initiative
+                </div>
+                <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Stop Waste, <span class="text-brand-orange">Share Good Food</span></h2>
+                <p class="text-teal-100 text-base md:text-lg leading-relaxed font-normal">Connect seamlessly with neighbors, local bakeries, and markets to rescue fresh surplus food. Build a sustainable community.</p>
+            </div>
+            
+            <div class="relative z-10 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <button onclick="toggleModal()" class="bg-brand-orange text-white px-8 py-4 rounded-2xl font-bold text-base shadow-glow hover:bg-orange-600 transition-all transform hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap">
+                    Post Listing Now
+                </button>
             </div>
         </div>
 
-        <!-- App Screen Content -->
-        <div class="iphone-screen">
-            <!-- iOS Navigation Header - Updated with Logo -->
-            <header class="ios-header">
-                <div class="flex items-center space-x-3">
-                    <img src="image_1.png" alt="ShareBite Logo" class="w-9 h-9 object-contain">
-                    <h1 class="text-2xl font-extrabold tracking-tighter text-brand-teal">Share<span class="text-brand-orange">Bite</span></h1>
-                </div>
-                <button onclick="toggleModal()" class="bg-brand-teal text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md active:scale-95 transition-all hover:bg-teal-800">
-                    + Share Food
-                </button>
-            </header>
-
-            <!-- Main Scrollable Area -->
-            <main class="flex-grow overflow-y-auto px-5 py-5 space-y-6 pb-24 bg-brand-lightBg">
-                
-                <!-- Hero Banner - Updated colors -->
-                <div class="bg-brand-teal text-white p-6 rounded-3xl shadow-lg border border-teal-900/20">
-                    <h2 class="text-xl font-bold">Stop Waste, Start Sharing</h2>
-                    <p class="text-teal-100 mt-1.5 text-sm leading-relaxed">Connect with neighbors to share surplus food and reduce local waste. It's free and easy!</p>
-                </div>
-
-                <!-- Search & Filters -->
-                <div class="space-y-3">
-                    <div class="relative">
-                        <input type="text" id="searchInput" oninput="filterFoodItems()" placeholder="Search items or locations..." class="w-full pl-11 pr-4 py-3.5 bg-white border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-mint focus:border-brand-teal transition-all">
-                        <svg class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    
-                    <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-                        <button onclick="setFilter('all')" class="filter-btn active-btn px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap">All</button>
-                        <button onclick="setFilter('Produce')" class="filter-btn bg-white text-slate-600 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border border-slate-100 hover:border-brand-mint">Produce</button>
-                        <button onclick="setFilter('Bakery')" class="filter-btn bg-white text-slate-600 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border border-slate-100 hover:border-brand-mint">Bakery</button>
-                        <button onclick="setFilter('Prepared')" class="filter-btn bg-white text-slate-600 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap border border-slate-100 hover:border-brand-mint">Prepared Meals</button>
-                    </div>
-                </div>
-
-                <!-- Food Listings Feed -->
-                <div id="foodGrid" class="space-y-4">
-                    <!-- Cards injected dynamically -->
-                </div>
-            </main>
-
-            <!-- iOS Bottom Tab Bar -->
-            <nav class="ios-tabbar">
-                <a href="#" class="tab-item text-brand-teal">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    <span class="text-[11px] font-semibold mt-1">Explore</span>
-                </a>
-                <a href="#" onclick="toggleModal(); return false;" class="tab-item text-slate-400 hover:text-brand-teal">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                    <span class="text-[11px] font-semibold mt-1">Share</span>
-                </a>
-                <a href="#" class="tab-item text-slate-400 hover:text-brand-teal">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    <span class="text-[11px] font-semibold mt-1">Profile</span>
-                </a>
-            </nav>
+        <!-- Filters & Search Bar Section -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-white/80 backdrop-blur-xl p-5 rounded-[2rem] border border-slate-200/60 shadow-glass transition-all">
+            <div class="relative w-full md:w-96">
+                <input type="text" id="searchInput" oninput="filterFoodItems()" placeholder="Search items, bakery, or location..." class="w-full pl-12 pr-4 py-3.5 bg-slate-50/80 border border-slate-200/80 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all shadow-inner">
+                <svg class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            
+            <div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 no-scrollbar">
+                <button onclick="setFilter('all')" class="filter-btn active-btn px-5 py-3 rounded-xl text-xs font-bold whitespace-nowrap shadow-sm">All Listings</button>
+                <button onclick="setFilter('Produce')" class="filter-btn bg-slate-50 text-slate-600 px-5 py-3 rounded-xl text-xs font-bold whitespace-nowrap border border-slate-200/80 hover:border-brand-teal transition">Produce</button>
+                <button onclick="setFilter('Bakery')" class="filter-btn bg-slate-50 text-slate-600 px-5 py-3 rounded-xl text-xs font-bold whitespace-nowrap border border-slate-200/80 hover:border-brand-teal transition">Bakery</button>
+                <button onclick="setFilter('Prepared')" class="filter-btn bg-slate-50 text-slate-600 px-5 py-3 rounded-xl text-xs font-bold whitespace-nowrap border border-slate-200/80 hover:border-brand-teal transition">Prepared Meals</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Modal for Donation -->
-    <div id="donateModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden justify-center items-end sm:items-center z-50 p-0 sm:p-4">
-        <div class="bg-white rounded-t-3xl sm:rounded-3xl p-7 max-w-md w-full shadow-2xl animate-slide-up border border-slate-100">
-            <div class="w-12 h-1.5 bg-slate-200 rounded-full mx-auto mb-6 sm:hidden"></div>
+        <!-- Food Listings Grid -->
+        <div id="foodGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards injected dynamically via JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-10 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+            <div class="flex items-center space-x-3">
+                <img src="image_1.png" alt="Logo" class="w-7 h-7 object-contain">
+                <span class="text-white font-bold tracking-wide">ShareBite Community Network</span>
+            </div>
+            <p class="text-slate-500 text-center">&copy; 2026 ShareBite. Empowering eco-friendly neighborhood distribution.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Smooth Modal -->
+    <div id="donateModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md hidden justify-center items-center z-50 p-4 transition-all duration-300">
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-10 max-w-lg w-full shadow-2xl animate-scale-up border border-slate-100 relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-teal via-brand-mint to-brand-orange"></div>
+            
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-slate-950">Share Surplus Food</h3>
-                <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-600 p-1">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <div>
+                    <h3 class="text-2xl font-black text-slate-900">Post Surplus Food</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Help neighbors and prevent local food wastage.</p>
+                </div>
+                <button onclick="toggleModal()" class="w-9 h-9 flex items-center justify-center bg-slate-100 rounded-full text-slate-500 hover:bg-slate-200 hover:text-slate-800 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
-            <form id="donationForm" onsubmit="handleDonate(event)" class="space-y-5">
+            <form id="donationForm" onsubmit="handleDonate(event)" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1.5">Item Title</label>
-                    <input type="text" id="foodTitle" placeholder="e.g., Fresh Sourdough" required class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:ring-1 focus:ring-brand-mint focus:border-brand-teal">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Item Name / Title</label>
+                    <input type="text" id="foodTitle" placeholder="e.g., Fresh Artisan Sourdough Loaf" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all">
                 </div>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Category</label>
-                        <select id="foodCategory" required class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:ring-1 focus:ring-brand-mint focus:border-brand-teal appearance-none">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Category</label>
+                        <select id="foodCategory" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all">
                             <option value="Produce">Produce</option>
                             <option value="Bakery">Bakery</option>
                             <option value="Prepared">Prepared Meal</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Expiry/Pickup By</label>
-                        <input type="text" id="foodExpiry" placeholder="e.g., Today, 7 PM" required class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:ring-1 focus:ring-brand-mint focus:border-brand-teal">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Pickup Time / Expiry</label>
+                        <input type="text" id="foodExpiry" placeholder="e.g., Today, 8 PM" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1.5">Pickup Location</label>
-                    <input type="text" id="foodLocation" placeholder="e.g., 123 Main St, Apt 4" required class="w-full p-4 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:ring-1 focus:ring-brand-mint focus:border-brand-teal">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Neighborhood Location</label>
+                    <input type="text" id="foodLocation" placeholder="e.g., 42 Market St, Downtown" required class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all">
                 </div>
                 
                 <div class="flex gap-3 pt-4">
-                    <button type="button" onclick="toggleModal()" class="w-1/2 py-4 bg-slate-100 font-semibold text-slate-700 rounded-xl text-sm active:scale-95 transition-all hover:bg-slate-200">Cancel</button>
-                    <button type="submit" class="w-1/2 py-4 bg-brand-orange text-white font-semibold rounded-xl text-sm shadow-sm active:scale-95 transition-all hover:bg-orange-600">Post Listing</button>
+                    <button type="button" onclick="toggleModal()" class="w-1/2 py-4 bg-slate-100 font-bold text-slate-600 rounded-2xl text-sm active:scale-95 transition hover:bg-slate-200">Cancel</button>
+                    <button type="submit" class="w-1/2 py-4 bg-brand-orange text-white font-bold rounded-2xl text-sm shadow-glow active:scale-95 transition hover:bg-orange-600">Publish Listing</button>
                 </div>
             </form>
         </div>
