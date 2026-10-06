@@ -38,6 +38,7 @@ const donateModal = document.getElementById('donateModal');
 const openDonateModal = document.getElementById('openDonateModal');
 const closeDonateModal = document.getElementById('closeDonateModal');
 const donateForm = document.getElementById('donateForm');
+const resetStockBtn = document.getElementById('resetStockBtn');
 
 // Render items on page load
 function renderItems() {
@@ -141,6 +142,12 @@ donateForm.addEventListener('submit', (e) => {
     donateForm.reset();
     donateModal.classList.remove('active');
     renderItems();
+});
+
+// Reset Stock Button Handler
+resetStockBtn.addEventListener('click', () => {
+    localStorage.clear();
+    location.reload();
 });
 
 // Initial render

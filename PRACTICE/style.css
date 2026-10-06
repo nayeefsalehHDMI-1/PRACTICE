@@ -263,10 +263,33 @@ body {
 .site-footer {
     background-color: var(--bg-footer);
     color: var(--white);
-    text-align: center;
     padding: 24px;
     font-size: 14px;
-    letter-spacing: 0.2px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.reset-stock-btn {
+    background: transparent;
+    color: var(--primary);
+    border: 1px dashed var(--primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.reset-stock-btn:hover {
+    background: rgba(0, 240, 255, 0.1);
 }
 
 /* Modal */
